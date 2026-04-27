@@ -25,7 +25,7 @@ Follow these lean steps using the Critique-then-Create methodology. Use the cust
 
 | Stage | Agent (Select from Dropdown) | Core Artifacts / Commands |
 | --- | --- | --- |
-| 0 | Agent Mode (default) | `npm install`, `npm test`, `npm run test:coverage` |
+| 0 | — | `npm install`, `npm test`, `npm run test:coverage` (run directly in terminal) |
 | 1 | **Test Critique** | Analysis document, `.golden-examples/` |
 | 2 | **Test Create** + Prompts | `*.spec.ts` files, coverage improvement |
 | 3 | **Test Quality Gate** | `Jenkinsfile`, `sonar-project.properties`, `jest.config.ts` |
@@ -35,13 +35,13 @@ Follow these lean steps using the Critique-then-Create methodology. Use the cust
 
 ## Stage 0 – Environment Setup
 
-Use **Agent Mode** (default) for setup commands:
+Run these commands directly in your terminal:
 
-- `#runInTerminal cd angular` (navigate to Angular project folder)
-- `#runInTerminal npm install`
-- `#runInTerminal npm test` (verify tests run)
-- `#runInTerminal npm run test:coverage` (establish baseline)
-- `#runInTerminal open coverage/lcov-report/index.html` (review baseline coverage)
+- `cd angular` (navigate to Angular project folder)
+- `npm install`
+- `npm test` (verify tests run)
+- `npm run test:coverage` (establish baseline)
+- `open coverage/lcov-report/index.html` (review baseline coverage)
 - Note: Record baseline coverage percentage for comparison
 
 ---
@@ -75,33 +75,33 @@ After analysis, verify:
 - Reference: Analysis redundancy section
 - Use prompt: `/refactor-to-parameterized` for user.service.spec.ts
 - Reference: `.golden-examples/parameterized-tests/` for `test.each` pattern
-- Verify: `#runInTerminal npm test -- --testPathPattern=user.service`
+- Run in terminal: `npm test -- --testPathPattern=user.service`
 - Target: 50%+ line reduction in validation tests
 
 ### Task 2.2 – Fix Flaky Tests
 - Reference: Analysis anti-patterns section
 - Use prompt: `/fix-flaky-test` for order.service.spec.ts
 - Reference: `.golden-examples/async-patterns/` for `fakeAsync`/`tick` pattern
-- Verify: `#runInTerminal for i in {1..5}; do npm test -- --testPathPattern=order.service; done`
+- Run in terminal: `for i in {1..5}; do npm test -- --testPathPattern=order.service; done`
 
 ### Task 2.3 – Generate HTTP Error Tests
 - Reference: Analysis HTTP gaps
 - Use prompt: `/generate-error-tests` for payment.service.spec.ts
 - Reference: `.golden-examples/http-mocking/` and `.golden-examples/error-handling/`
-- Verify: `#runInTerminal npm test -- --testPathPattern=payment.service`
+- Run in terminal: `npm test -- --testPathPattern=payment.service`
 
 ### Task 2.4 – Generate Signal Tests
 - Reference: Analysis signal gaps
 - Reference: `.golden-examples/signal-testing/`
-- Verify: `#runInTerminal npm test -- --testPathPattern=inventory.service`
+- Run in terminal: `npm test -- --testPathPattern=inventory.service`
 
 ### Task 2.5 – Generate Boundary Tests
 - Use prompt: `/generate-boundary-tests` for validators
 - Reference: `.golden-examples/boundary-testing/` for 7-point analysis
-- Verify: `#runInTerminal npm test`
+- Run in terminal: `npm test`
 
 ### Verification
-- `#runInTerminal npm run test:coverage`
+- Run in terminal: `npm run test:coverage`
 - Compare coverage to Stage 0 baseline
 - Target: Coverage improved by 15%+
 
@@ -122,19 +122,19 @@ After analysis, verify:
 - `Jenkinsfile` – Pipeline with test, coverage, and quality gate stages
 
 ### Verification
-- `#runInTerminal npm run test:coverage` (verify thresholds enforced)
-- `#runInTerminal cat sonar-project.properties` (verify SonarQube config)
-- `#runInTerminal cat Jenkinsfile` (verify pipeline structure)
+- Run in terminal: `npm run test:coverage` (verify thresholds enforced)
+- Run in terminal: `cat sonar-project.properties` (verify SonarQube config)
+- Run in terminal: `cat Jenkinsfile` (verify pipeline structure)
 
 ---
 
 ## Stage 4 – Final Validation & Submission
 
-Switch back to **Agent Mode** (default) for final validation:
+Run these final validation commands in your terminal:
 
-- `#runInTerminal npm run lint` (no errors)
-- `#runInTerminal npm test` (all tests pass)
-- `#runInTerminal npm run test:coverage` (thresholds met)
+- `npm run lint` (no errors)
+- `npm test` (all tests pass)
+- `npm run test:coverage` (thresholds met)
 - Review analysis for completeness
 - Commit changes with meaningful message
 - Push branch and open PR if required
